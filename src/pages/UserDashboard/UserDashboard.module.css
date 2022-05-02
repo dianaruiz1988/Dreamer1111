@@ -23,7 +23,7 @@
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--text-dark);
+    background-color: white;
     padding: 2vmin;
     height: 100vh;
   }

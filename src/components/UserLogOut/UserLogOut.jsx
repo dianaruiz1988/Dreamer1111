@@ -1,16 +1,18 @@
 import styles from './UserLogOut.module.css';
 import { logOut } from '../../utilities/users-service';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import UserDashboard from '../../pages/UserDashboard/UserDashboard'
 
 export default function UserLogOut({ user, setUser }) {
+
+const navigate = useNavigate();
 function handleLogOut() {
   logOut();
   setUser(null);
-
   // tell it where to navigate once you log out 
   // i want it to go to /
-  <Navigate to="/dashboard" element={<UserDashboard />} />
+  // <Navigate to="/dashboard" element={<UserDashboard />} /> - THIS LINE IS WRONG DONT EVER
+navigate('/dashboard')
 }
 
 return (

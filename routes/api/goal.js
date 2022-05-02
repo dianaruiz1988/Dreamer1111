@@ -1,40 +1,43 @@
 const express = require('express');
 const router = express.Router();
 
-//Ctrl=controller
+//goalCtrl =controller where all my functions that relate to each route are
+
 const goalCtrl = require('../../controllers/api/goal');
 
-// GET /api/items
+//INDUCES===========================================================================================
 
-//INDUCES
+    /*BASE API ROUTE = app.use('/api/goal', require('./routes/api/goal'));
+    each route listed below will start with BASE API ROUTE that is on the server and also noted above
+    */
 
-//when someone makes a request to route its going to call the index
-//make sure it matches the controllers (index)
+//INDEX++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    /*when someone makes a request to route its going to call the index
+    make sure it matches the controllers (index)
+    */
 
-//Actual route starts with your base route that is on the server
 router.get('/', goalCtrl.index);
 
-router.post('/newgoal', goalCtrl.create);
+//NEW++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//will create a new goal 
+//DELETE+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// router.post ('/newgoal', (req,res) => {
-//     goalCtrl.create ({goal:"create into database", date:"4/27/22",deadline:"4/27/22",achieved:true},(err,createdgoal) =>{
-//         if (err) {
-//             res.json(err)
+//UPDATE++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//         }else {
-//             res.json(createdgoal)
-//         }
-//     })
-// })
+//CREATE+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //will create a new goal 
+router.post('/creategoal', goalCtrl.create);
+
+
+//EDIT+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//SHOW++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // GET /api/items/:id
 //when someone makes a request to items/id it will show 
 // router.get('/:id', goalCtrl.show);
 
+
 module.exports = router;
 
-
-
-//model.create will allow me to create a new item 

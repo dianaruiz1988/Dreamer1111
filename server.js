@@ -9,38 +9,43 @@ require('./config/database');
 
 const app = express();
 
-//MIDDLEWARE
+
+//MIDDLEWARE====================================================================================
 app.use(logger('dev'));
 app.use(express.json());
 
-// Configure both serve-favicon & static middleware
-// to serve from the production 'build' folder
+//*CONFIGURE both serve-favicon & static middleware to serve from the production 'build' folder*
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Check if token and create req.user
+
+//CHECK if TOKEN and CREATE req.user============================================================
 app.use(require('./config/checkToken'));
 
-// Put API routes here, before the "catch all" route
-app.use('/api/users', require('./routes/api/users'));    
 
-//my base URL
-app.use('/api/goals', require('./routes/api/goal'));
+//BASE ROUTES=====================================================================================
 
-// Protect the API routes below from anonymous users
-// const ensureLoggedIn = require('./config/ensureLoggin');
+/* Put API ROUTES here, before the "catch all" route
+THESE ARE NOT THE BROWSER ROUTES??? THIS IS ALL BACKEND
+link routes and controllers to servers
+*/
+
+app.use('/api/users', require('./routes/api/users'));  
+
+//*PROTECT the API ROUTES below from Annonymous users*
+const ensureLoggedIn = require('./config/ensureLoggin');
+app.use('/api/goal', ensureLoggedIn, require('./routes/api/goal'));
 // app.use('/api/diary', ensureLoggedIn, require('./routes/api/diary'));
-// app.use('/api/goal', ensureLoggedIn, require('./routes/api/goal'));
 
+//"CATCH ALL" ROUTE,(note the *), : necessary to return the index.html on all non-AJAX requests
 
-// The following "catch all" route (note the *) is necessary
-// to return the index.html on all non-AJAX requests
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// Configure to use port 3001 instead of 3000 during
-// development to avoid collision with React's dev server
+
+//CONFIGURE T0 USE PORT 3001 instead of 3000 during DEVELOPMENT to avoid collision with React's dev server
+
 const port = process.env.PORT || 3001;
 
 app.listen(port, function() {
